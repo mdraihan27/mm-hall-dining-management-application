@@ -5,49 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MMH Dining | Email verification</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../styles/signup.css">
+    <link rel="stylesheet" href="../styles/email-verification.css">
+    <link rel="stylesheet" href="../styles/common-messages.css">
 </head>
 
 <body>
     <header>
-        <h3><a href="../index.html">MM Hall Dining</a></h3>
+        <h3 class="logo" onclick="window.location.href='index.html'">MM Hall Dining</h3>
     </header>
 
     <main>
-        <div class="signup-container">
+        <div class="container">
             <h2>Email verification</h2>
-            
-            <p id="emailSentText"></p>
-            <form id="signupForm">
-               
+
+            <div id="successMessage" class="message-container success-message" style="display:none;"></div>
+            <div id="errorMessage" class="message-container error-message" style="display:none;"></div>
+
+            <p id="emailSentText">Email</p>
+            <form id="emailVerifyForm">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        placeholder="Enter your JUST email"
-                        required
-                    >
-                </div>
-                
-                
-                <button type="submit" class="signup-btn">Verify Email</button>
-            </form>
+                    <input type="text" id="verificationCode" name="verificationCode" placeholder="Verification code"
+                        required>
+                </div>                <button type="submit" class="btn btn-full">
+                    <span class="btn-text">Verify Email</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner"></span>
+                        Verifying...
+                    </span>
+                </button>            </form>
             
-            <div class="resend-email flex justify-between">
-                Didn't receive any mail? <a id="resendLink" class="underline cursor-pointer"> resend mail</a>
+            <div class="form-links">
+                <button type="button" id="resendLink" class="btn-secondary btn-full">
+                    <span class="btn-text">Resend Code</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner"></span>
+                        Sending...
+                    </span>
+                </button>
+            </div>
+            
+            <div class="link-section">
+                <a href="login.html">Back to Login</a>
             </div>
         </div>
     </main>
-    <script src="../scripts/signup.js"></script>
+    <script type="module" src="../scripts/email-verification.js"></script>
 </body>
 
 </html>

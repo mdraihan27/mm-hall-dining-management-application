@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MMH Dining | Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,55 +13,46 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/common-messages.css">
 </head>
 
 <body>
     <header>
-        <h3><a href="../index.html">MM Hall Dining</a></h3>
+        <h3 class="logo" onclick="window.location.href='index.html'">MM Hall Dining</h3>
     </header>
-
-    <main>        <div class="login-container">
+    <main>
+        <div class="container">
             <h2>Welcome Back</h2>
             <p>Sign in to your account</p>
-            
-            <div id="successMessage" class="success-message" style="display: none;"></div>
-            <div id="errorMessage" class="error-message" style="display: none;"></div>
-            
+            <div id="successMessage" class="message-container success-message" style="display: none;"></div>
+            <div id="errorMessage" class="message-container error-message" style="display: none;"></div>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        placeholder="Enter your email"
-                        required
-                    >
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        placeholder="Enter your password"
-                        required
-                    >
-                </div>
-                  <button type="submit" class="login-btn">Login</button>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>                <button type="submit" class="btn btn-full">
+                    <span class="btn-text">Login</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner"></span>
+                        Logging in...
+                    </span>
+                </button>
             </form>
             
-            <div class="forgot-password-link">
-                <a href="forgot-password.html">Forgot your password?</a>
+            <div class="form-links">
+                <a href="forgot-password.html">Forgot Password?</a>
             </div>
             
-            <div class="signup-link">
-                Don't have an account? <a href="signup.html">Sign up</a>
+            <div class="link-section">
+                Don't have an account? <a href="signup.html">Sign Up</a>
             </div>
         </div>
     </main>
-    <script src="../scripts/login.js"></script>
+    <script type="module" src="../scripts/login.js"></script>
 </body>
 
 </html>
