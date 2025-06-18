@@ -17,10 +17,6 @@ import java.util.ArrayList;
 public class UserEntity {
 
     @Id
-    private String userId;
-
-    @Indexed(unique = true)
-    @NonNull
     private String email;
 
     @NonNull
@@ -34,10 +30,12 @@ public class UserEntity {
     private long userCreationTime;
 
     private String userVerificationEntityId;
+
     private String userSettingsEntityId;
 
-    private ArrayList<String> userElectionsId;
+    private ArrayList<String> userTokensId;
 
     private ArrayList<String> roles;
+
 
 }

@@ -17,7 +17,7 @@ public class UserVerificationEntity {
     @Id
     private String id;
 
-    private String userId;
+    private String userEmail;
     private String verificationCode;
     private Instant verificationCodeExpirationTime;
 

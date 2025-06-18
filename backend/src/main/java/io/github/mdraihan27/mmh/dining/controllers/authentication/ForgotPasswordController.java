@@ -74,7 +74,8 @@ public class ForgotPasswordController {
             ResponseEntity<UserEntity> userResponse = userService.findUser(email, "email");
 
             if(userResponse.getStatusCode() == HttpStatus.OK ){
-                ResponseEntity verificationResponse = userVerificationService.verifyVerificationCode(userResponse.getBody(), verificationCode, true, "");
+                ResponseEntity verificationResponse = userVerificationService
+                        .verifyVerificationCode(userResponse.getBody(), verificationCode, true, "");
 
                 if(verificationResponse.getStatusCode() == HttpStatus.OK ){
                     ResponseEntity resetPasswordResponse = forgotPasswordService.resetPasswordWithoutPreviousPassword(newPassword, email);

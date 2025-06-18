@@ -1,5 +1,7 @@
 package io.github.mdraihan27.mmh.dining.controllers.user;
 
+import io.github.mdraihan27.mmh.dining.entities.user.UserVerificationEntity;
+import io.github.mdraihan27.mmh.dining.repositories.UserVerificationRepository;
 import io.github.mdraihan27.mmh.dining.services.user.ForgotPasswordService;
 import io.github.mdraihan27.mmh.dining.entities.user.UserEntity;
 import io.github.mdraihan27.mmh.dining.repositories.UserRepository;
@@ -31,15 +33,18 @@ public class UserController {
     @Autowired
     private ForgotPasswordService forgotPasswordService;
 
+    @Autowired
+    private UserVerificationRepository userVerificationRepository;
+
     @GetMapping("user")
     public ResponseEntity getLoggedInUserInfo() {
-        try{
+        try {
             UserEntity authenticatedUser = getAuthenticatedUserUtil.getAuthenticatedUser();
 
-                return ResponseEntity.status(HttpStatus.OK)
-                        .body(createResponseUtil.createResponseBody(true, "User found", "userInfo", createResponseUtil.createUserInfoMap(authenticatedUser)));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(createResponseUtil.createResponseBody(true, "User found", "userInfo", createResponseUtil.createUserInfoMap(authenticatedUser)));
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.internalServerError()
                     .body(createResponseUtil.createResponseBody(false, "An error occurred while fetching user"));
@@ -49,22 +54,30 @@ public class UserController {
     @Transactional
     @DeleteMapping("user/delete")
     public ResponseEntity deleteLoggedInUser() {
-        try{
-            UserEntity authenticatedUser =  getAuthenticatedUserUtil.getAuthenticatedUser();
+        try {
+            UserEntity authenticatedUser = getAuthenticatedUserUtil.getAuthenticatedUser();
 
-                userRepository.deleteById(authenticatedUser.getUserId());
-                UserEntity userById = userRepository.findById(authenticatedUser.getUserId()).orElse(null);
-                UserEntity userByEmail = userRepository.findByEmail(authenticatedUser.getEmail()).orElse(null);
-                if(userById == null && userByEmail == null) {
-                    return ResponseEntity.status(HttpStatus.OK)
-                            .body(createResponseUtil.createResponseBody(true, "User is successfully deleted"));
-                }else{
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                            .body(createResponseUtil.createResponseBody(false, "User deletion has concluded partial or unsuccessful"));
-                }
+            String userVerificationEntityId = authenticatedUser.getUserVerificationEntityId();
+            String email =authenticatedUser.getEmail();
 
-        }catch (Exception e) {
+            userVerificationRepository.deleteById(userVerificationEntityId);
+            userRepository.deleteById(authenticatedUser.getEmail());
+            UserEntity userByEmail = userRepository.findByEmail(email).orElse(null);
+
+            UserVerificationEntity userVerificationEntity = userVerificationRepository.findById(userVerificationEntityId).orElse(null);
+
+            if (userByEmail == null && userVerificationEntity == null) {
+
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(createResponseUtil.createResponseBody(true, "User is successfully deleted"));
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(createResponseUtil.createResponseBody(false, "User deletion has concluded partial or unsuccessful"));
+            }
+
+        } catch (Exception e) {
             log.error(e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.internalServerError()
                     .body(createResponseUtil.createResponseBody(false, "An error occurred while deleting user"));
         }
@@ -72,7 +85,7 @@ public class UserController {
 
     @PutMapping("user/password-reset")
     public ResponseEntity resetPasswordWithPreviousPassword(@RequestBody Map<String, Object> requestBody) {
-        try{
+        try {
             String oldPassword = (String) requestBody.get("oldPassword");
             String newPassword = (String) requestBody.get("newPassword");
 
@@ -84,7 +97,6 @@ public class UserController {
                     .body(createResponseUtil.createResponseBody(false, "An error occurred while resetting password"));
         }
     }
-
 
 
 }

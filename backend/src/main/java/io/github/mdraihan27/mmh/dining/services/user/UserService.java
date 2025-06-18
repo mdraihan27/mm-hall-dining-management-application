@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Slf4j
@@ -64,9 +65,8 @@ public class UserService {
 
         try{
             userEntity.setAccountEnabled(true);
-            userEntity.setUserId(GenerateAndValidateStringUtil.generateUniqueString());
             userEntity.setVerified(isVerified);
-            userEntity.setUserVerificationEntityId(userVerificationService.createUserVerificationEntity(userEntity.getUserId()).getId());
+            userEntity.setUserVerificationEntityId(userVerificationService.createUserVerificationEntity(userEntity.getEmail()).getId());
             userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
             userEntity.setRoles(new ArrayList<>(Arrays.asList("USER")));
             userEntity.setUserCreationTime(Instant.now().getEpochSecond());

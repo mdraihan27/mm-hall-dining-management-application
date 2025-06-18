@@ -37,9 +37,9 @@ public class UserVerificationService {
     @Autowired
     private GetAuthenticatedUserUtil getAuthenticatedUserUtil;
 
-    public UserVerificationEntity createUserVerificationEntity(String userId){
+    public UserVerificationEntity createUserVerificationEntity(String userEmail){
         UserVerificationEntity userVerificationEntity =
-                new UserVerificationEntity(GenerateAndValidateStringUtil.generateUniqueString(), userId, "", Instant.now());
+                new UserVerificationEntity(GenerateAndValidateStringUtil.generateUniqueString(), userEmail, "", Instant.now());
 
         return userVerificationRepository.save(userVerificationEntity);
     }
@@ -50,7 +50,7 @@ public class UserVerificationService {
             UserVerificationEntity userVerificationEntity ;
             Optional<UserVerificationEntity> optionalUserVerificationEntity = userVerificationRepository.findById(userEntity.getUserVerificationEntityId());
             if(!optionalUserVerificationEntity.isPresent()){
-                UserVerificationEntity newUserVerificationEntity = createUserVerificationEntity(userEntity.getUserId());
+                UserVerificationEntity newUserVerificationEntity = createUserVerificationEntity(userEntity.getEmail());
                 userEntity.setUserVerificationEntityId(newUserVerificationEntity.getId());
                 userRepository.save(userEntity);
                 userVerificationEntity = newUserVerificationEntity;
