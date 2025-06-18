@@ -19,6 +19,6 @@ logoutButton.addEventListener('click', function () {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('email');
     localStorage.removeItem('name');
-    window.location.href = '../pages/index.html';
+    window.location.href = '../index.html';
 });
 
