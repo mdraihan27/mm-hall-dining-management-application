@@ -1,4 +1,5 @@
 import { showSuccessMessage, showErrorMessage, hideAllMessages } from './lib/messages.js';
+import { SECRETS } from '../secrets.js';
 
 // Button loading state utility functions
 function setButtonLoading(button, isLoading) {
@@ -215,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {    const emailInput = docu
 
 // API Functions
 async function sendPasswordResetCode(email) {
-    const response = await fetch('http://localhost:8089/api/v1/auth/password-reset/code', {
+    const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/password-reset/code`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -233,7 +234,7 @@ async function sendPasswordResetCode(email) {
 }
 
 async function verifyAndResetPassword(params) {
-    const response = await fetch('http://localhost:8089/api/v1/auth/password-reset/verify-and-reset', {
+    const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/password-reset/verify-and-reset`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -29,6 +29,7 @@ public class UserEntity {
     private boolean isAccountEnabled;
     private long userCreationTime;
 
+    private long balance;
     private String userVerificationEntityId;
 
     private String userSettingsEntityId;

@@ -21,8 +21,8 @@ public class ValidateDiningTokenController {
     @Autowired
     GetAuthenticatedUserUtil getAuthenticatedUserUtil;
 
-    @GetMapping
-    public ResponseEntity getDiningToken(@RequestParam String tokenId) {
+    @GetMapping("validate")
+    public ResponseEntity validateDiningToken(@RequestParam String tokenId) {
         try{
             if(tokenId.isEmpty() || tokenId==null ){
                 return ResponseEntity.badRequest().body(createResponseUtil.createResponseBody(false, "Token id is empty"));

@@ -1,4 +1,6 @@
 import { showSuccessMessage, showErrorMessage, hideAllMessages } from './lib/messages.js';
+import { getJwtOrGoToLoginPage, cleanLocalStorageAuthData } from './lib/token.js';
+import { SECRETS } from '../secrets.js';
 
 // Button loading state utility functions
 function setButtonLoading(button, isLoading) {
@@ -58,6 +60,13 @@ function addInputValidation() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize input validation
+    // const jwt = getJwtOrGoToLoginPage();
+    // if (jwt) {
+    //     showSuccessMessage('User already logged in. Redirecting to home page');
+
+    //      window.location.href = '../pages/home.html';
+        
+    // }
     addInputValidation();
 
     // Add input focus effects
@@ -120,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loginApiCall(params) {
-    const response = await fetch('http://localhost:8089/api/v1/auth/login', {
+    const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

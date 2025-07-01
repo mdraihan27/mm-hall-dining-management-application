@@ -1,21 +1,6 @@
 import {sendEmailVerificationCodeCall} from '../scripts/email-verification.js';
 import { showSuccessMessage, showErrorMessage, hideAllMessages } from '../scripts/lib/messages.js';
-
-// Button loading state utility functions
-function setButtonLoading(button, isLoading) {
-    const btnText = button.querySelector('.btn-text');
-    const btnLoading = button.querySelector('.btn-loading');
-    
-    if (isLoading) {
-        button.disabled = true;
-        btnText.style.display = 'none';
-        btnLoading.style.display = 'flex';
-    } else {
-        button.disabled = false;
-        btnText.style.display = 'block';
-        btnLoading.style.display = 'none';
-    }
-}
+import { SECRETS } from '../secrets.js';
 
 // Input validation utilities
 function validateEmail(email) {
@@ -24,7 +9,7 @@ function validateEmail(email) {
 }
 
 function validatePassword(password) {
-    return password.length >= 8;
+    return password.length >= 8 && password.length <= 50;
 }
 
 // Real-time input validation
@@ -150,7 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const submitBtn = signupForm.querySelector('.btn');
-        setButtonLoading(submitBtn, true);        try {
+        
+        try {
             const result = await signupApiCall({ email, name, password });
             if (result) {
                 showSuccessMessage(`Signup successful! Welcome, ${result.userInfo?.name || name}`);
@@ -165,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 2000);
             }
         } catch (error) {
-            showErrorMessage(error.message);
+            showErrorMessage("Signup failed, server did not respond or returned an error");
         } finally {
             setButtonLoading(submitBtn, false);
         }
@@ -173,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function signupApiCall(params) {
-    const response = await fetch('http://localhost:8089/api/v1/auth/signup', {
+    const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/signup`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

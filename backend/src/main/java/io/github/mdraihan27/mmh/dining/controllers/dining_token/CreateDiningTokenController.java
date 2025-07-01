@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/dining-token")
+@RequestMapping("/api/v1/user/dining-token")
 @Slf4j
 public class CreateDiningTokenController {
 
@@ -30,7 +30,7 @@ public class CreateDiningTokenController {
     @PostMapping("create")
     public ResponseEntity createDiningToken(@RequestBody DiningTokenEntity diningToken) {
         try{
-            if(diningToken.getTokenType().isEmpty() || diningToken.getTokenType()==null){
+            if(diningToken.getDiningTokenType().isEmpty() || diningToken.getDiningTokenType()==null){
                 return ResponseEntity
                         .badRequest()
                         .body(createResponseUtil.createResponseBody(false, "Token type is empty"));

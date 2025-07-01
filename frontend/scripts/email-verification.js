@@ -1,5 +1,7 @@
 import { getJwtOrGoToLoginPage } from './lib/token.js';
 import { showSuccessMessage, showErrorMessage, hideAllMessages } from './lib/messages.js';
+import { SECRETS } from '../secrets.js';
+
 
 // Button loading state utility functions
 function setButtonLoading(button, isLoading) {
@@ -36,6 +38,7 @@ function addInputValidation() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize input validation
+    getJwtOrGoToLoginPage();
     addInputValidation();
 
     // Add input focus effects
@@ -124,18 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-async function verifyEmailCall(params) {
+
+
+export async function sendEmailVerificationCodeCall() {
 
     const jwt = await getJwtOrGoToLoginPage();
 
-    const response = await fetch('http://localhost:8089/api/v1/auth/email-verification/verify', {
+    const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/email-verification/code`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwt}`
 
-        },
-        body: JSON.stringify(params)
+        }
     });
 
     if (!response.ok) {
@@ -147,17 +151,18 @@ async function verifyEmailCall(params) {
     return data;
 }
 
-export async function sendEmailVerificationCodeCall() {
+async function verifyEmailCall(params) {
 
     const jwt = await getJwtOrGoToLoginPage();
 
-    const response = await fetch('http://localhost:8089/api/v1/auth/email-verification/code', {
+    const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/email-verification/verify`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwt}`
 
-        }
+        },
+        body: JSON.stringify(params)
     });
 
     if (!response.ok) {

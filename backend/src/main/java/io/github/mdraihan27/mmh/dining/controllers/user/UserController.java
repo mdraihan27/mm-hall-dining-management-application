@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 public class UserController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class UserController {
     @Autowired
     private UserVerificationRepository userVerificationRepository;
 
-    @GetMapping("user")
+    @GetMapping("user-info")
     public ResponseEntity getLoggedInUserInfo() {
         try {
             UserEntity authenticatedUser = getAuthenticatedUserUtil.getAuthenticatedUser();
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @Transactional
-    @DeleteMapping("user/delete")
+    @DeleteMapping("delete")
     public ResponseEntity deleteLoggedInUser() {
         try {
             UserEntity authenticatedUser = getAuthenticatedUserUtil.getAuthenticatedUser();
@@ -83,7 +83,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("user/password-reset")
+    @PutMapping("password-reset")
     public ResponseEntity resetPasswordWithPreviousPassword(@RequestBody Map<String, Object> requestBody) {
         try {
             String oldPassword = (String) requestBody.get("oldPassword");

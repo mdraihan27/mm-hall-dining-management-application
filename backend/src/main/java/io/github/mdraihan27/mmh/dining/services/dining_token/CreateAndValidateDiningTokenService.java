@@ -3,11 +3,13 @@ package io.github.mdraihan27.mmh.dining.services.dining_token;
 import io.github.mdraihan27.mmh.dining.entities.dining_token.DiningTokenEntity;
 import io.github.mdraihan27.mmh.dining.entities.user.UserEntity;
 import io.github.mdraihan27.mmh.dining.repositories.DiningTokenRepository;
+import io.github.mdraihan27.mmh.dining.repositories.MealInfoRepository;
 import io.github.mdraihan27.mmh.dining.repositories.UserRepository;
 import io.github.mdraihan27.mmh.dining.utilities.CreateResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.*;
 import java.util.UUID;
@@ -24,11 +26,23 @@ public class CreateAndValidateDiningTokenService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MealInfoRepository mealInfoRepository;
+
+    @Transactional
     public ResponseEntity createNewToken(UserEntity tokenOwner, DiningTokenEntity diningToken) {
         try {
             diningToken.setTokenId(UUID.randomUUID().toString().replace("-", "").substring(0, 8));
             diningToken.setTokenOwnerEmail(tokenOwner.getEmail());
             diningToken.setTokenGenerationTIme(Instant.now().toEpochMilli());
+
+            if(diningToken.getMealTime().equals("lunch")){
+                diningToken.setMealPrice(mealInfoRepository.findById("mealInfo").get().getLunchMealPrice());
+            }else if(diningToken.getMealTime().equals("dinner")){
+                diningToken.setMealPrice(mealInfoRepository.findById("mealInfo").get().getDinnerMealPrice());
+            }
+
+
 
             long tokenExpirationTime;
             if (diningToken.getMealTime().equals("lunch")) {
@@ -42,6 +56,15 @@ public class CreateAndValidateDiningTokenService {
             }
 
             diningToken.setTokenExpirationTime(tokenExpirationTime);
+
+            if(diningToken.getMealPrice() > tokenOwner.getBalance()) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(createResponseUtil.createResponseBody(false, "User does not have enough balance to buy this token"));
+            }else{
+                tokenOwner.setBalance(tokenOwner.getBalance() - diningToken.getMealPrice());
+            }
+
             DiningTokenEntity savedToken = tokenRepository.save(diningToken);
 
             if (savedToken != null) {

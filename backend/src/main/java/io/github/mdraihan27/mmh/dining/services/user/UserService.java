@@ -70,6 +70,8 @@ public class UserService {
             userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
             userEntity.setRoles(new ArrayList<>(Arrays.asList("USER")));
             userEntity.setUserCreationTime(Instant.now().getEpochSecond());
+            userEntity.setUserTokensId(new ArrayList<>());
+            userEntity.setBalance(0);
             UserEntity createdUser = userRepository.save(userEntity);
 
             if(createdUser != null){
