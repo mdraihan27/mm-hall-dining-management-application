@@ -35,7 +35,7 @@ public class EmailVerificationController {
     public ResponseEntity sendEmailVerificationCode() {
         try{
             UserEntity authenticatedUser = getAuthenticatedUserUtil.getAuthenticatedUser();
-
+            System.out.println("Mail sent to: " + authenticatedUser.getEmail());
 
             if(authenticatedUser.isVerified()){
 
@@ -44,7 +44,7 @@ public class EmailVerificationController {
             }
             return userVerificationService.sendVerificationCodeEmail(authenticatedUser,
                     "Your email verification code",
-                    "Use this code to verify your email in Ballotguard",
+                    "Use this code to verify your email in MM Hall Dining Management Application",
                     "Email verification code sent");
 
 
