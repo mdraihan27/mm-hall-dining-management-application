@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Disable link temporarily
             this.style.pointerEvents = 'none';
             this.style.opacity = '0.6';
-            const originalText = this.textContent;
             this.textContent = 'Sending...';
             
             try {
@@ -119,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Re-enable link
                 this.style.pointerEvents = 'auto';
                 this.style.opacity = '1';
-                this.textContent = originalText;
+                this.textContent = 'Resend Code';
             }
         });
     }

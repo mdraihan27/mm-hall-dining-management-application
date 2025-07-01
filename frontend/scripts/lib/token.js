@@ -73,7 +73,8 @@ export const getJwtOrGoToLoginPage = async () => {
     if (!jwt || !checkJwtValidity(jwt)) {
         const refreshToken = localStorage.getItem('refreshToken');
         if (!refreshToken || !checkJwtValidity(refreshToken)) {
-            window.location.href = '../pages/login.html';
+            // Use relative path that works from pages directory
+            window.location.href = 'login.html';
             cleanLocalStorageAuthData();
             return null;
         }
@@ -81,13 +82,13 @@ export const getJwtOrGoToLoginPage = async () => {
         try {
             const refreshedJwt = await refreshJwt();
             if (!refreshedJwt) {
-                window.location.href = '../pages/login.html';
+                window.location.href = 'login.html';
                 cleanLocalStorageAuthData();
                 return null;
             }
             jwt = refreshedJwt;
         } catch (error) {
-            window.location.href = '../pages/login.html';
+            window.location.href = 'login.html';
             return null;
         }
     }

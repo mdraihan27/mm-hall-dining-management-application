@@ -232,6 +232,31 @@ main {
     text-decoration: underline;
 }
 
+.footer-content {
+    background-color: var(--primary);
+    height: 200px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  .footer-text {
+    color: var(--white);
+    font-size: 1rem;
+    text-align: center;
+    margin: 0 1rem;
+  }
+
+  .footer-link {
+    color: var(--success);
+    text-decoration: underline;
+    
+  
+  }
+
+
 @media (max-width: 768px) {
     main {
         padding: 1rem 0.5rem;
@@ -266,10 +291,4 @@ main {
     .btn-primary {
         padding: 1rem 1.5rem;
     }
-}
-
-.container,
-input, select, textarea,
-.btn, .login-button, button {
-    border-radius: 4px !important;
 }

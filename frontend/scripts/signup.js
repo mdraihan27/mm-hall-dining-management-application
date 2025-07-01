@@ -1,6 +1,24 @@
-import {sendEmailVerificationCodeCall} from '../scripts/email-verification.js';
-import { showSuccessMessage, showErrorMessage, hideAllMessages } from '../scripts/lib/messages.js';
+import { showSuccessMessage, showErrorMessage, hideAllMessages } from './lib/messages.js';
+import { sendEmailVerificationCodeCall } from './email-verification.js';
 import { SECRETS } from '../secrets.js';
+
+// Button loading state utility
+function setButtonLoading(button, isLoading) {
+    if (!button) return;
+    
+    const btnText = button.querySelector('.btn-text');
+    const btnLoading = button.querySelector('.btn-loading');
+    
+    if (isLoading) {
+        button.disabled = true;
+        if (btnText) btnText.style.display = 'none';
+        if (btnLoading) btnLoading.style.display = 'flex';
+    } else {
+        button.disabled = false;
+        if (btnText) btnText.style.display = 'block';
+        if (btnLoading) btnLoading.style.display = 'none';
+    }
+}
 
 // Input validation utilities
 function validateEmail(email) {
@@ -135,23 +153,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const submitBtn = signupForm.querySelector('.btn');
+        setButtonLoading(submitBtn, true);
         
         try {
             const result = await signupApiCall({ email, name, password });
             if (result) {
-                showSuccessMessage(`Signup successful! Welcome, ${result.userInfo?.name || name}`);
-                setTimeout(async () => {
-                    try {
-                        await sendEmailVerificationCodeCall();
-                        window.location.href = '../pages/email-verification.html';
-                    } catch (error) {
-                        console.error('Error sending verification code:', error);
-                        window.location.href = '../pages/email-verification.html';
+                showSuccessMessage(`Signup successful! Welcome, ${result.userInfo?.name || name}. Redirecting to email verification...`);
+                
+                // Wait a bit to ensure JWT is stored and user sees success message
+                setTimeout(async() => {
+                    // Check if JWT was stored successfully
+                    const storedJwt = localStorage.getItem('jwt');
+                    if (!storedJwt) {
+                        console.error('JWT not found after signup');
+                        showErrorMessage('Signup successful but session error. Please login.');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                        return;
                     }
+                    
+                    // Go directly to email verification page
+                    // User can send verification code from there
+                    window.location.href = 'email-verification.html';
+                    await sendEmailVerificationCodeCall(); 
                 }, 2000);
             }
         } catch (error) {
-            showErrorMessage("Signup failed, server did not respond or returned an error");
+            console.error('Signup error:', error);
+            showErrorMessage(error.message || "Signup failed, server did not respond or returned an error");
         } finally {
             setButtonLoading(submitBtn, false);
         }
@@ -159,24 +189,40 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function signupApiCall(params) {
-    const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/signup`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(params)
-    });
+    try {
+        const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/signup`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(params)
+        });
 
-    if (!response.ok) {
-        const errorData = await response.json();
-        const errorText = errorData.message || response.statusText;
-        throw new Error(errorText);
+        if (!response.ok) {
+            const errorData = await response.json();
+            const errorText = errorData.message || response.statusText;
+            throw new Error(errorText);
+        }
+
+        
+        const data = await response.json();
+        
+        // Store the authentication data
+        if (data.jwt) {
+            localStorage.setItem('jwt', data.jwt);
+        }
+        if (data.refreshToken) {
+            localStorage.setItem('refreshToken', data.refreshToken);
+        }
+        if (data.userInfo) {
+            localStorage.setItem('name', data.userInfo.name);
+            localStorage.setItem('email', data.userInfo.email);
+        }
+        
+        console.log('Signup successful, JWT stored:', !!data.jwt);
+        return data;
+    } catch (error) {
+        console.error('Signup API call failed:', error);
+        throw error;
     }
-
-    const data = await response.json();
-    localStorage.setItem('jwt', data.jwt);
-    localStorage.setItem('refreshToken', data.refreshToken);
-    localStorage.setItem('name', data.userInfo.name);
-    localStorage.setItem('email', data.userInfo.email);
-    return data;
 }
