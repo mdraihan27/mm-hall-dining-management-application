@@ -38,7 +38,7 @@ function addInputValidation() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize input validation
-    getJwtOrGoToLoginPage();
+    // getJwtOrGoToLoginPage();
     addInputValidation();
 
     // Add input focus effects
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 export async function sendEmailVerificationCodeCall() {
 
-    const jwt = await getJwtOrGoToLoginPage();
+    // const jwt = await getJwtOrGoToLoginPage();
 
     const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/email-verification/code`, {
         method: 'POST',

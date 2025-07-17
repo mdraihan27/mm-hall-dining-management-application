@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMH Dining | Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/profile.css">
+    <link rel="stylesheet" href="../styles/common-messages.css">
+</head>
+
+<body>
+    <div class="global-message-container">
+        <div id="successMessage" class="global-message success-message"></div>
+        <div id="errorMessage" class="global-message error-message"></div>
+        <div id="infoMessage" class="global-message info-message"></div>
+        <div id="warningMessage" class="global-message warning-message"></div>
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <h3 class="logo" onclick="window.location.href='index.html'">MM Hall Dining</h3>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-wrapper">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <h2 class="profile-title">User Profile</h2>
+                    <p class="profile-subtitle">Manage your account information</p>
+                </div>
+                
+                <div class="profile-section">
+                    <!-- Name Field -->
+                    <div class="profile-field">
+                        <div class="field-header">
+                            <span class="field-label">Full Name</span>
+                            <button class="btn btn-small" onclick="toggleEditForm('name-form')">Edit</button>
+                        </div>
+                        <div class="field-value" id="username">Raihan Hossen</div>
+                        
+                        <div id="name-form" class="edit-form">
+                            <div class="form-group">
+                                <label for="new-name-input" class="form-label">New Name</label>
+                                <input type="text" id="new-name-input" class="form-input" placeholder="Enter your full name">
+                            </div>
+                            <div class="form-actions">
+                                <button class="btn btn-secondary" onclick="cancelEdit('name-form')">Cancel</button>
+                                <button class="btn btn-small" onclick="submitNameChange()">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="profile-field">
+                        <div class="field-header">
+                            <span class="field-label">Email Address</span>
+                        </div>
+                        <div class="field-value" id="email"></div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="change-password-field">
+                        <div class="change-password-header">
+                           
+                            <button class="btn btn-small" onclick="toggleEditForm('password-form')">Change Password</button>
+                        </div>
+                        
+                        
+                        <div id="password-form" class="edit-form">
+                            <div class="form-group">
+                                <label for="prev-pass" class="form-label">Current Password</label>
+                                <input type="password" id="prev-pass" class="form-input" placeholder="Enter current password">
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password" class="form-label">New Password</label>
+                                <input type="password" id="new-password" class="form-input" placeholder="Enter new password">
+                            </div>
+                            <div class="form-group">
+                                <label for="retype-new-password" class="form-label">Confirm New Password</label>
+                                <input type="password" id="retype-new-password" class="form-input" placeholder="Confirm new password">
+                            </div>
+                            <div class="form-actions">
+                                <button class="btn btn-secondary" onclick="cancelEdit('password-form')">Cancel</button>
+                                <button class="btn btn-small" onclick="submitPasswordChange()">Update Password</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">© 2025 MM Hall Dining Management Application | <a class="footer-link"
+                    href="https://github.com/mdraihan27">github.com/mdraihan27</a> | All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script type="module" src="../scripts/profile.js"></script>
+</body>
+
+</html>

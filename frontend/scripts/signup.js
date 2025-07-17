@@ -113,8 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signupForm');
 
     signupForm.addEventListener('submit', async function (e) {
+        console.log('Signup form submitted');
         e.preventDefault();
         hideAllMessages();
+        console.log('Signup form submitted2');
+
 
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
@@ -161,23 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 showSuccessMessage(`Signup successful! Welcome, ${result.userInfo?.name || name}. Redirecting to email verification...`);
                 
                 // Wait a bit to ensure JWT is stored and user sees success message
-                setTimeout(async() => {
-                    // Check if JWT was stored successfully
-                    const storedJwt = localStorage.getItem('jwt');
-                    if (!storedJwt) {
-                        console.error('JWT not found after signup');
-                        showErrorMessage('Signup successful but session error. Please login.');
-                        setTimeout(() => {
-                            window.location.href = 'login.html';
-                        }, 2000);
-                        return;
-                    }
-                    
-                    // Go directly to email verification page
-                    // User can send verification code from there
+            
+                   
                     window.location.href = 'email-verification.html';
                     await sendEmailVerificationCodeCall(); 
-                }, 2000);
+                
             }
         } catch (error) {
             console.error('Signup error:', error);
@@ -188,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-async function signupApiCall(params) {
+const signupApiCall = async(params) => {
     try {
         const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/signup`, {
             method: 'POST',
