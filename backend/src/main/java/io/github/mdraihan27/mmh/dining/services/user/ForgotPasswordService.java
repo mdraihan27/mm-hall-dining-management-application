@@ -61,6 +61,26 @@ public class ForgotPasswordService {
         }
     }
 
+    public ResponseEntity updateName(String newName) throws Exception {
+        try{
+            UserEntity authenticatedUser = getAuthenticatedUserUtil.getAuthenticatedUser();
+
+            if(newName.isEmpty()){
+                return ResponseEntity.badRequest()
+                        .body(createResponseUtil.createResponseBody(false, "Name cannot be empty"));
+            }else{
+               authenticatedUser.setName(newName);
+                userRepository.save(authenticatedUser);
+                return ResponseEntity.ok().body(createResponseUtil.createResponseBody(true, "Name successfully updated"));
+
+            }
+
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new Exception(e.getMessage());
+        }
+    }
+
     @Transactional
     public ResponseEntity resetPasswordWithoutPreviousPassword(String newPassword, String email) throws Exception {
         try{

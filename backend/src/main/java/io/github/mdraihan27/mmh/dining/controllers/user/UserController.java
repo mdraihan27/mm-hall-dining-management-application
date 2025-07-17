@@ -83,6 +83,21 @@ public class UserController {
         }
     }
 
+    @PutMapping("update-name")
+    public ResponseEntity updateName(@RequestBody Map<String, Object> requestBody) {
+        try {
+
+            String newName = (String) requestBody.get("newName");
+
+            return forgotPasswordService.updateName(newName);
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError()
+                    .body(createResponseUtil.createResponseBody(false, "An error occurred while updating name"));
+        }
+    }
+
     @PutMapping("password-reset")
     public ResponseEntity resetPasswordWithPreviousPassword(@RequestBody Map<String, Object> requestBody) {
         try {
