@@ -6,6 +6,7 @@ import io.github.mdraihan27.mmh.dining.utilities.GetAuthenticatedUserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ public class TransferDiningTokenController {
     @Autowired
     private CreateResponseUtil createResponseUtil;
 
+    @PutMapping("transfer")
     public ResponseEntity transferDiningToken(@RequestBody Map<String, Object> requestBody) {
         try{
             String tokenId = (String) requestBody.get("tokenId");
