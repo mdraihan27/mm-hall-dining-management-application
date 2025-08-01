@@ -111,6 +111,7 @@ public class CreateResponseUtil {
             userMap.put("isVerified", user.isVerified());
             userMap.put("isAccountEnabled", user.isAccountEnabled());
             userMap.put("balance", user.getBalance());
+            userMap.put("roles", user.getRoles());
             return userMap;
 
         } catch (Exception e) {

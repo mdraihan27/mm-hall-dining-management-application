@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMH Dining | Login</title>
+    <title>MMH Dining | Transfer Token</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,16 +28,44 @@
         <div class="page-wrapper">
             <div class="page-header">
                 <h2 class="page-title">Transfer token</h2>
-                
+
             </div>
-            
-            
-           
+
+            <div class="form-container">
+                <form id="transferTokenForm" class="transfer-token-form">
+                    <div class="form-group">
+                        <label for="recipientStudentId" class="form-label">Recipient Student ID</label>
+                        <input type="text" id="recipientStudentId" name="recipientStudentId" class="form-input"
+                            placeholder="Enter recipient's student ID" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tokenId" class="form-label">Token ID</label>
+                        <input type="text" id="tokenId" name="tokenId" class="form-input"
+                            placeholder="Enter token ID to transfer" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Transfer Token</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
 
         </div>
     </main>
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">© 2025 MM Hall Dining Management Application | <a class="footer-link"
+                    href="https://github.com/mdraihan27">github.com/mdraihan27</a> | All rights reserved.</p>
+        </div>
+
+    </footer>
     <script type="module" src="../scripts/transfer-token.js"></script>
-    
+
 </body>
 
 </html>

@@ -11,22 +11,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @AllArgsConstructor
 public class DiningTokenEntity {
-
     @Id
     private String tokenId;
-
     private String tokenOwnerEmail;
-
     private long tokenGenerationTIme;
-
     private long tokenExpirationTime;
-
     private String mealTime;
-
     private String diningTokenType;
-
     private long mealPrice;
-
-
-
 }

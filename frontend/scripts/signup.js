@@ -2,7 +2,6 @@ import { showSuccessMessage, showErrorMessage, hideAllMessages } from './lib/mes
 import { sendEmailVerificationCodeCall } from './email-verification.js';
 import { SECRETS } from '../secrets.js';
 
-// Button loading state utility
 function setButtonLoading(button, isLoading) {
     if (!button) return;
     
@@ -20,7 +19,6 @@ function setButtonLoading(button, isLoading) {
     }
 }
 
-// Input validation utilities
 function validateEmail(email) {
     const emailRegex = /^[A-Za-z0-9+_.-]+@student\.just\.edu\.bd$/;
     return emailRegex.test(email);
@@ -30,7 +28,6 @@ function validatePassword(password) {
     return password.length >= 8 && password.length <= 50;
 }
 
-// Real-time input validation
 function addInputValidation() {
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
@@ -71,7 +68,6 @@ function addInputValidation() {
                 this.classList.remove('error');
             }
             
-            // Check password match if confirm field has value
             if (confirmPasswordInput.value) {
                 checkPasswordMatch();
             }
@@ -95,10 +91,8 @@ function addInputValidation() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize input validation
     addInputValidation();
 
-    // Add input focus effects
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => {
         input.addEventListener('focus', function () {
@@ -162,10 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await signupApiCall({ email, name, password });
             if (result) {
                 showSuccessMessage(`Signup successful! Welcome, ${result.userInfo?.name || name}. Redirecting to email verification...`);
-                
-                // Wait a bit to ensure JWT is stored and user sees success message
             
-                   
+                await new Promise(resolve => setTimeout(resolve, 1500));
                     window.location.href = 'email-verification.html';
                     await sendEmailVerificationCodeCall(); 
                 
@@ -189,7 +181,7 @@ const signupApiCall = async(params) => {
             body: JSON.stringify(params)
         });
 
-        if (!response.ok) {
+        if (!response.ok || !response) {
             const errorData = await response.json();
             const errorText = errorData.message || response.statusText;
             throw new Error(errorText);
@@ -197,6 +189,8 @@ const signupApiCall = async(params) => {
 
         
         const data = await response.json();
+
+        console.log('Signup API response:', data);
         
         // Store the authentication data
         if (data.jwt) {

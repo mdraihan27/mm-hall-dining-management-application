@@ -22,7 +22,8 @@
   font-family: 'Poppins', sans-serif;
 }
 
-html, body {
+html,
+body {
   background: linear-gradient(135deg, var(--light) 0%, #f8f6f0 100%);
   color: var(--text-dark);
   min-height: 100vh;
@@ -269,76 +270,75 @@ main {
 }
 
 .footer-content {
-    background-color: var(--primary);
-    height: 200px;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
-  }
+  background-color: var(--primary);
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
 
-  .footer-text {
-    color: var(--white);
-    font-size: 1rem;
-    text-align: center;
-    margin: 0 1rem;
-  }
+.footer-text {
+  color: var(--white);
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 1rem;
+}
 
-  .footer-link {
-    color: var(--success);
-    text-decoration: underline;
-    
-  
-  }
+.footer-link {
+  color: var(--success);
+  text-decoration: underline;
 
+
+}
 
 .verification-group {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .verification-group input {
-    flex: 1;
+  flex: 1;
 }
 
 .success-message {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid var(--success);
-    color: var(--success);
-    padding: 1rem;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    display: none;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--success);
+  color: var(--success);
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  display: none;
 }
 
 .error-message {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid var(--error);
-    color: var(--error);
-    padding: 1rem;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    display: none;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  display: none;
 }
 
 @media (max-width: 768px) {
   main {
     padding: 1rem 0.5rem;
   }
-  
+
   .auth-card {
     padding: 2rem 1.5rem;
   }
-  
+
   .auth-title {
     font-size: 1.8rem;
   }
-  
+
   .auth-header {
     margin-bottom: 2rem;
   }
@@ -348,15 +348,15 @@ main {
   .auth-card {
     padding: 1.5rem 1rem;
   }
-  
+
   .auth-title {
     font-size: 1.5rem;
   }
-  
+
   .form-input {
     padding: 0.8rem 1rem;
   }
-  
+
   .btn-primary {
     padding: 1rem 1.5rem;
   }

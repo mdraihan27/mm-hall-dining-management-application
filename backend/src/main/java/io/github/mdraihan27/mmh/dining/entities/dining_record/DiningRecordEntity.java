@@ -17,8 +17,8 @@ public class DiningRecordEntity {
 
     private long tokensSold;
 
-    private long totalExpenses;
+    private long totalSales;
 
-    private long diningBalance;
+    private long totalExpenses;
 
 }

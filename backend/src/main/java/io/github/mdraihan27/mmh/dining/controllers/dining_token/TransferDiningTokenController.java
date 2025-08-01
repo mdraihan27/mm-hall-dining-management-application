@@ -1,5 +1,6 @@
 package io.github.mdraihan27.mmh.dining.controllers.dining_token;
 
+import io.github.mdraihan27.mmh.dining.entities.user.UserEntity;
 import io.github.mdraihan27.mmh.dining.services.dining_token.TransferDiningTokenService;
 import io.github.mdraihan27.mmh.dining.utilities.CreateResponseUtil;
 import io.github.mdraihan27.mmh.dining.utilities.GetAuthenticatedUserUtil;
@@ -43,6 +44,13 @@ public class TransferDiningTokenController {
                         .body(createResponseUtil.createResponseBody(false, "New owner email is empty"));
             }
 
+            UserEntity authenticatedUser = getAuthenticatedUserUtil.getAuthenticatedUser();
+
+            if(authenticatedUser.getEmail().equals(newOwnerEmail)){
+                return ResponseEntity
+                        .badRequest()
+                        .body(createResponseUtil.createResponseBody(false, "You cannot transfer tokens to yourself"));
+            }
             return transferDiningTokenService.transferDiningToken(tokenId, newOwnerEmail, getAuthenticatedUserUtil.getAuthenticatedUser());
 
 

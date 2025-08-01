@@ -5,15 +5,13 @@ export const checkJwtValidity = (jwt) => {
     if (parts.length !== 3) return false;
 
     try {
-        // Decode JWT payload safely (handling Unicode)
         const payload = JSON.parse(decodeJwtPayload(parts[1]));
 
         if (payload.exp) {
             const now = Date.now();
             const expiry = payload.exp * 1000;
-            const buffer = 2 * 60 * 1000; // 2 minutes in ms
+            const buffer = 3 * 60 * 1000; 
 
-            // Consider token expired if it will expire in next 2 minutes
             if (now >= expiry - buffer) {
                 return false;
             }
@@ -72,8 +70,8 @@ export const getJwtOrGoToLoginPage = async () => {
     let jwt = localStorage.getItem('jwt');
     if (!jwt || !checkJwtValidity(jwt)) {
         const refreshToken = localStorage.getItem('refreshToken');
+        console.log(refreshToken);
         if (!refreshToken || !checkJwtValidity(refreshToken)) {
-            // Use relative path that works from pages directory
             window.location.href = 'login.html';
             cleanLocalStorageAuthData();
             return null;

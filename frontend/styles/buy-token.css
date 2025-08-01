@@ -1,15 +1,15 @@
 /* Professional color palette */
 :root {
-  --primary: #222831;
-  --secondary: #393E46;
-  --accent: #948979;
-  --light: #DFD0B8;
-  --white: #ffffff;
-  --text-dark: #222831;
-  --text-light: #666;
-  --border: #e1e5e9;
-  --success: #4b473b;
-  --shadow: rgba(34, 40, 49, 0.1);
+    --primary: #222831;
+    --secondary: #393E46;
+    --accent: #948979;
+    --light: #DFD0B8;
+    --white: #ffffff;
+    --text-dark: #222831;
+    --text-light: #666;
+    --border: #e1e5e9;
+    --success: #10b981;
+    --shadow: rgba(34, 40, 49, 0.1);
 }
 
 * {
@@ -19,7 +19,8 @@
     font-family: 'Poppins', sans-serif;
 }
 
-html, body {
+html,
+body {
     background: linear-gradient(135deg, var(--light) 0%, #f8f6f0 100%);
     color: var(--text-dark);
     min-height: 100vh;
@@ -198,12 +199,12 @@ main {
     position: relative;
 }
 
-.styled-checkbox:checked + .checkmark {
+.styled-checkbox:checked+.checkmark {
     background: var(--success);
     border-color: var(--success);
 }
 
-.styled-checkbox:checked + .checkmark::after {
+.styled-checkbox:checked+.checkmark::after {
     content: '✓';
     color: white;
     font-weight: bold;
@@ -250,12 +251,12 @@ main {
     transition: all 0.3s ease;
 }
 
-.styled-radio:checked + .radio-checkmark {
+.styled-radio:checked+.radio-checkmark {
     border-color: var(--success);
     background: var(--success);
 }
 
-.styled-radio:checked + .radio-checkmark::after {
+.styled-radio:checked+.radio-checkmark::after {
     content: '';
     width: 8px;
     height: 8px;
@@ -292,25 +293,49 @@ main {
     transform: translateY(0);
 }
 
+.footer-content {
+    background-color: var(--primary);
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.footer-text {
+    color: var(--white);
+    font-size: 1rem;
+    text-align: center;
+    margin: 0 1rem;
+}
+
+.footer-link {
+    color: var(--success);
+    text-decoration: underline;
+
+
+}
+
 @media (max-width: 768px) {
     .page-title {
         font-size: 2rem;
     }
-    
+
     #meal-info-container {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    
+
     .form-container {
         padding: 2rem 1.5rem;
     }
-    
+
     .radio-options {
         flex-direction: column;
         gap: 1rem;
     }
-    
+
     .token-type-section {
         padding-left: 1rem;
     }
@@ -320,12 +345,12 @@ main {
     main {
         padding: 1rem 0.5rem;
     }
-    
+
     .page-header {
         padding: 1rem 0;
         margin-bottom: 2rem;
     }
-    
+
     .meal-info-card,
     .meal-selection-card {
         padding: 1.5rem;

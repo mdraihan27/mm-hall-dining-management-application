@@ -1,18 +1,18 @@
 /* Professional color palette */
 :root {
-  --primary: #222831;
-  --secondary: #393E46;
-  --accent: #948979;
-  --light: #DFD0B8;
-  --white: #ffffff;
-  --text-dark: #222831;
-  --text-light: #666;
-  --border: #e1e5e9;
-  --success: #10b981;
-  --error: #ef4444;
-  --warning: #f59e0b;
-  --info: #3b82f6;
-  --shadow: rgba(34, 40, 49, 0.1);
+    --primary: #222831;
+    --secondary: #393E46;
+    --accent: #948979;
+    --light: #DFD0B8;
+    --white: #ffffff;
+    --text-dark: #222831;
+    --text-light: #666;
+    --border: #e1e5e9;
+    --success: #10b981;
+    --error: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    --shadow: rgba(34, 40, 49, 0.1);
 }
 
 * {
@@ -22,7 +22,8 @@
     font-family: 'Poppins', sans-serif;
 }
 
-html, body {
+html,
+body {
     background: linear-gradient(135deg, var(--light) 0%, #f8f6f0 100%);
     color: var(--text-dark);
     min-height: 100vh;
@@ -205,8 +206,13 @@ main {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .auth-footer {
@@ -235,41 +241,41 @@ main {
 .footer-content {
     background-color: var(--primary);
     height: 200px;
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 40px;
-  }
+}
 
-  .footer-text {
+.footer-text {
     color: var(--white);
     font-size: 1rem;
     text-align: center;
     margin: 0 1rem;
-  }
+}
 
-  .footer-link {
+.footer-link {
     color: var(--success);
     text-decoration: underline;
-    
-  
-  }
+
+
+}
 
 
 @media (max-width: 768px) {
     main {
         padding: 1rem 0.5rem;
     }
-    
+
     .auth-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .auth-title {
         font-size: 1.8rem;
     }
-    
+
     .auth-header {
         margin-bottom: 2rem;
     }
@@ -279,15 +285,15 @@ main {
     .auth-card {
         padding: 1.5rem 1rem;
     }
-    
+
     .auth-title {
         font-size: 1.5rem;
     }
-    
+
     .form-input {
         padding: 0.8rem 1rem;
     }
-    
+
     .btn-primary {
         padding: 1rem 1.5rem;
     }

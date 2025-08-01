@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Service
 public class DiningRecordService {
@@ -16,26 +18,27 @@ public class DiningRecordService {
     @Autowired
     private DiningRecordRepository diningRecordRepository;
 
-    public void incrementTokenCount(){
-        DiningRecordEntity diningRecordEntity = diningRecordRepository.findById(getCurrentDate()).orElse(null);
-        if(diningRecordEntity == null){
+    public ResponseEntity addTokenToDiningRecords(DiningTokenEntity diningToken){
+        try{
 
-            diningRecordEntity.setDiningRecordDay(getCurrentDate());
+            Optional<DiningRecordEntity> diningRecord = diningRecordRepository.findById(getCurrentDate());
+            if(diningRecord.isPresent()){
+                diningRecord.get().setTokensSold(diningRecord.get().getTokensSold() + 1);
+                diningRecord.get().setTotalSales(diningRecord.get().getTotalSales()+diningToken.getMealPrice());
+            }else{
+                DiningRecordEntity newDiningRecord = new DiningRecordEntity(DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                        .format(LocalDateTime.now()), 0, 0, 0);
 
-            DiningRecordEntity previousDayRecord = diningRecordRepository.findById(getPreviousDate()).orElse(null);
-
-            long previousDayBalance=0;
-            if(previousDayRecord != null){
-                previousDayBalance = previousDayRecord.getDiningBalance();
+                newDiningRecord.setTokensSold(1);
+                newDiningRecord.setTotalSales(diningRecord.get().getTotalSales()+diningToken.getMealPrice());
             }
-
-            diningRecordEntity.setDiningBalance(previousDayBalance);
-            diningRecordEntity.setTokensSold(0);
-            diningRecordEntity.setTotalExpenses(0);
+            return ResponseEntity.ok().build();
+        }catch (Exception e){
+            throw new RuntimeException(e);
         }
 
-       //code mising
     }
+
 
     public String getCurrentDate() {
         LocalDate now = LocalDate.now();

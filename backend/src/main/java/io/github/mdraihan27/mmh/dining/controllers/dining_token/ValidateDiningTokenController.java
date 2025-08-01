@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/dining-token")
+@RequestMapping("/api/v1/admin/dining-token")
 @Slf4j
 public class ValidateDiningTokenController {
     @Autowired

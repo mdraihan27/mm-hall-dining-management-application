@@ -113,7 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 showSuccessMessage('Verification code sent successfully!');
                 this.textContent = 'Resend Code';
             } catch (error) {
-                showErrorMessage(error.message);
+                showErrorMessage('Failed to send verification code. ' + "please try logging in");
+                console.log(error.message);
             } finally {
                 // Re-enable link
                 this.style.pointerEvents = 'auto';
@@ -130,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 export async function sendEmailVerificationCodeCall() {
 
-    // const jwt = await getJwtOrGoToLoginPage();
+    const jwt = await getJwtOrGoToLoginPage();
 
     const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/email-verification/code`, {
         method: 'POST',

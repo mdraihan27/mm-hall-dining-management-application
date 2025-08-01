@@ -44,11 +44,10 @@ public class AuthenticationTokenController {
         }
     }
 
-    @PostMapping("token-verification")
-    public ResponseEntity<Map> verifyToken(@RequestBody Map<String, Object> requestBody) {
+    @GetMapping("token-verification")
+    public ResponseEntity<Map> verifyToken(@RequestParam String token) {
 
         try{
-            String token = (String) requestBody.get("token");
 
 
             if(jwtUtil.validateToken(token, false)){

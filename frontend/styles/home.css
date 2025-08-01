@@ -22,7 +22,8 @@
   font-family: 'Poppins', sans-serif;
 }
 
-html, body {
+html,
+body {
   background: linear-gradient(135deg, var(--light) 0%, #f8f6f0 100%);
   color: var(--text-dark);
   min-height: 100vh;
@@ -277,59 +278,59 @@ main {
 
 
 .footer-content {
-    background-color: var(--primary);
-    height: 200px;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
-  }
+  background-color: var(--primary);
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
 
-  .footer-text {
-    color: var(--white);
-    font-size: 1rem;
-    text-align: center;
-    margin: 0 1rem;
-  }
+.footer-text {
+  color: var(--white);
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 1rem;
+}
 
-  .footer-link {
-    color: var(--success);
-    text-decoration: underline;
-    
-  
-  }
-  
+.footer-link {
+  color: var(--success);
+  text-decoration: underline;
+
+
+}
+
 @media (max-width: 768px) {
   .header-content {
     padding: 0 1rem;
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .logo {
     font-size: 1.5rem;
   }
-  
+
   .page-title {
     font-size: 2.2rem;
   }
-  
+
   .balance-card {
     min-width: unset;
     width: 100%;
     padding: 2rem 1.5rem;
   }
-  
+
   .actions-section {
     padding: 2rem 1.5rem;
   }
-  
+
   .action-cards {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .action-card {
     padding: 1.5rem;
   }
@@ -339,27 +340,27 @@ main {
   main {
     padding: 1rem 0.5rem;
   }
-  
+
   .header-content {
     padding: 0 0.5rem;
   }
-  
+
   .page-header {
     margin-bottom: 2rem;
   }
-  
+
   .dashboard-content {
     gap: 2rem;
   }
-  
+
   .balance-card {
     padding: 1.5rem 1rem;
   }
-  
+
   .balance-amount {
     font-size: 2rem;
   }
-  
+
   .actions-section {
     padding: 1.5rem 1rem;
   }
