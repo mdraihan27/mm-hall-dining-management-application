@@ -1,3 +1,5 @@
+import { SECRETS } from '../../secrets.js';
+
 export const checkJwtValidity = (jwt) => {
     if (!jwt) return false;
 
@@ -40,7 +42,7 @@ const refreshJwt = async () => {
     if (!refreshToken) throw new Error('Refresh token is required');
 
     try {
-        const response = await fetch(`http://localhost:8089/api/v1/auth/refresh?refreshToken=${refreshToken}`, {
+        const response = await fetch(`${SECRETS.API_URL}/api/v1/auth/refresh?refreshToken=${refreshToken}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

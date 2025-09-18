@@ -23,6 +23,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('User Info:', response.userInfo);
         const balance = document.getElementById('account-balance');
         balance.textContent = `৳ ${response.userInfo.balance}`;
+
+        // Show Admin Panel action if user has admin role
+        const roles = response.userInfo?.roles || response.userInfo?.authorities || [];
+        const isAdmin = Array.isArray(roles)
+            ? roles.some(r => {
+                const v = typeof r === 'string' ? r : (r?.authority || r?.role || r?.name);
+                return typeof v === 'string' && v.toLowerCase().includes('admin');
+              })
+            : false;
+
+        const adminBtn = document.getElementById('adminPanelBtn');
+        if (isAdmin && adminBtn) {
+            adminBtn.style.display = 'flex';
+        }
     }
 });
 

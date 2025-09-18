@@ -7,6 +7,7 @@ import io.github.mdraihan27.mmh.dining.services.dining_record.DiningRecordServic
 import io.github.mdraihan27.mmh.dining.services.user.UserService;
 import io.github.mdraihan27.mmh.dining.utilities.CreateResponseUtil;
 import io.github.mdraihan27.mmh.dining.utilities.GetAuthenticatedUserUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/dining-record")
 public class GetDiningRecordController {
@@ -37,13 +39,21 @@ public class GetDiningRecordController {
     public ResponseEntity getDiningRecordByDate(@RequestParam String date) {
         try{
 
+            log.info(date);
+
+
             if (date == null || date.isEmpty()) {
                 return ResponseEntity.badRequest().body(createResponseUtil.createResponseBody(false, "Date cannot be empty"));
             }
 
+
             Optional<DiningRecordEntity> diningRecord = diningRecordRepository.findById(date);
             if (diningRecord.isEmpty()) {
+
+//                DiningRecordEntity newDiningRecord = new DiningRecordEntity();
+                log.info("not-found");
                 return ResponseEntity.notFound().build();
+
             }
 
             return ResponseEntity.ok(createResponseUtil.createResponseBody(true, "Balance updated", "diningRecord", diningRecord.get()));

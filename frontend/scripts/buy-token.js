@@ -112,7 +112,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 async function mealInfoApiCall(params) {
-    // const jwt = await getJwtOrGoToLoginPage();
     const response = await fetch(`${SECRETS.API_URL}/api/v1/public/meal-info/get`, {
         method: 'GET',
         headers: {
