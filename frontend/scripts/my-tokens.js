@@ -63,7 +63,6 @@ async function tokenListApiCall(params) {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwt}`
         }
-        
     });
     if (!response.ok) {
         const errorData = await response.json();

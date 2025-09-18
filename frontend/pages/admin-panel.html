@@ -34,62 +34,79 @@
 
 
             <div class="admin-panel-content">
-
-                <!-- Search Dining Records -->
+                <!-- Search Dining Records (inline) -->
                 <div class="form-container">
                     <h3 class="form-label top-text">Search Dining Records</h3>
                     <form id="searchRecordsForm">
                         <div class="form-group">
                             <label for="record-date" class="form-label">Select Date</label>
-                            <input type="date" id="record-date" name="record-date" class="form-input" required>
+                            <input type="date" id="record-date" class="form-input" required>
                         </div>
                         <button type="submit" class="btn" id="search-records-button">Search Records</button>
                     </form>
                     <div class="form-group">
-                        <label class="form-label">Total Token Sold </label>
-                        <div id="total-token-sales" class="form-input"
-                            style="background-color: #f8f9fa; cursor: default;">
-                        </div>
+                        <label class="form-label">Total Token Sold</label>
+                        <div id="total-token-sales-result" class="form-input" style="background-color: #f8f9fa; cursor: default;"></div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Total Sales Amount </label>
-                        <div id="total-sales-amount" class="form-input"
-                            style="background-color: #f8f9fa; cursor: default;">
-                        </div>
+                        <label class="form-label">Total Sales Amount</label>
+                        <div id="total-sales-amount-result" class="form-input" style="background-color: #f8f9fa; cursor: default;"></div>
                     </div>
-
                 </div>
 
-
-                <div>
-                    <!-- Token Validation -->
-                    <div class="form-container">
-                        <h3 class="form-label top-text">Token Validation</h3>
-                        <form id="validateTokenForm">
-                            <div class="form-group">
-                                <label for="token-id" class="form-label">Token ID</label>
-                                <input type="text" id="token-id" name="token-id" class="form-input"
-                                    placeholder="Enter token ID to validate" required>
-                            </div>
-                            <button type="submit" class="btn" id="validate-token-button">Validate Token</button>
-                        </form>
-                    </div>
-
-                    <div class="form-container">
-                        <h3 class="form-label top-text" >Today's Sales Overview</h3>
+                <!-- Token Validation (inline) -->
+                <div class="form-container">
+                    <h3 class="form-label top-text">Token Validation</h3>
+                    <form id="validateTokenForm">
                         <div class="form-group">
-                            <label class="form-label">Total Token Sold Today</label>
-                            <div id="total-token-sales" class="form-input"
-                                style="background-color: #f8f9fa; cursor: default;">
-                                Loading...</div>
+                            <label for="token-id" class="form-label">Token ID</label>
+                            <input type="text" id="token-id" class="form-input" placeholder="Enter token ID" required>
+                        </div>
+                        <button type="submit" class="btn" id="validate-token-button">Validate Token</button>
+                    </form>
+                    <div class="form-group">
+                        <label class="form-label">Validation Result</label>
+                        <div id="token-validation-result" class="form-input" style="background-color: #f8f9fa; cursor: default;"></div>
+                        <div id="token-validation-status" style="margin-top: 6px; font-weight: 600;"></div>
+                    </div>
+                </div>
+
+                <!-- Today's Sales (inline) -->
+                <div class="form-container">
+                    <h3 class="form-label top-text">Today's Sales Overview</h3>
+                    <div class="form-group">
+                        <label class="form-label">Total Token Sold Today</label>
+                        <div id="today-total-token-sales" class="form-input" style="background-color: #f8f9fa; cursor: default;">Loading...</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Total Sales Amount Today</label>
+                        <div id="today-total-sales-amount" class="form-input" style="background-color: #f8f9fa; cursor: default;">Loading...</div>
+                    </div>
+                    <button class="btn" id="refresh-today-sales-button">Refresh</button>
+                </div>
+
+                <!-- Set Meal Info (inline) -->
+                <div class="form-container">
+                    <h3 class="form-label top-text">Set Meal Info</h3>
+                    <form id="set-meal-info-form">
+                        <div class="form-group">
+                            <label for="lunch-meal-type" class="form-label">Lunch Meal Type</label>
+                            <input type="text" id="lunch-meal-type" name="lunch-meal-type" class="form-input" placeholder="Feast or regular" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Total Sales Amount Today</label>
-                            <div id="total-sales-amount" class="form-input"
-                                style="background-color: #f8f9fa; cursor: default;">
-                                Loading...</div>
+                            <label for="lunch-meal-price" class="form-label">Lunch Meal Price (৳)</label>
+                            <input type="number" id="lunch-meal-price" name="lunch-meal-price" class="form-input" placeholder="0" step="0.01" min="0">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="dinner-meal-type" class="form-label">Dinner Meal Type</label>
+                            <input type="text" id="dinner-meal-type" name="dinner-meal-type" class="form-input" placeholder="Feast or regular" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dinner-meal-price" class="form-label">Dinner Meal Price (৳)</label>
+                            <input type="number" id="dinner-meal-price" name="dinner-meal-price" class="form-input" placeholder="0" step="0.01" min="0">
+                        </div>
+                        <button type="submit" class="btn" id="set-meal-info-button">Save Meal Info</button>
+                    </form>
                 </div>
             </div>
 

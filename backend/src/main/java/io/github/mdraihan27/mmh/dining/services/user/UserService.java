@@ -2,7 +2,9 @@ package io.github.mdraihan27.mmh.dining.services.user;
 
 import io.github.mdraihan27.mmh.dining.entities.user.UserEntity;
 import io.github.mdraihan27.mmh.dining.repositories.UserRepository;
+import io.github.mdraihan27.mmh.dining.utilities.CreateResponseUtil;
 import io.github.mdraihan27.mmh.dining.utilities.GenerateAndValidateStringUtil;
+import io.github.mdraihan27.mmh.dining.utilities.GetAuthenticatedUserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,12 @@ public class UserService {
 
     @Autowired
     private UserVerificationService userVerificationService;
+
+    @Autowired
+    private CreateResponseUtil createResponseUtil;
+
+    @Autowired
+    private GetAuthenticatedUserUtil getAuthenticatedUserUtil;
 
     @Autowired
     private GenerateAndValidateStringUtil generateAndValidateStringUtil;
@@ -84,6 +92,27 @@ public class UserService {
             throw new Exception("Error creating user");
         }
 
+    }
+
+    public ResponseEntity updateName(String newName) throws Exception {
+        try{
+            UserEntity authenticatedUser = getAuthenticatedUserUtil.getAuthenticatedUser();
+
+            if(newName.isEmpty()){
+                return ResponseEntity.badRequest()
+                        .body(createResponseUtil.createResponseBody(false, "Name cannot be empty"));
+            }else{
+                authenticatedUser.setName(newName);
+                userRepository.save(authenticatedUser);
+                return ResponseEntity
+                        .ok()
+                        .body(createResponseUtil
+                                .createResponseBody(true, "Name successfully updated"));
+            }
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new Exception(e.getMessage());
+        }
     }
 
 

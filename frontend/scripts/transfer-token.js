@@ -14,11 +14,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     transferTokenForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         hideAllMessages();
-        const recipientStudentId = document.getElementById('recipientStudentId').value.trim();
+        const newOwnerEmail = document.getElementById('recipientStudentId').value.trim();
         const tokenId = document.getElementById('tokenId').value.trim();
-        const newOwnerEmail = recipientStudentId + "@student.just.edu.bd";
 
-        if (!recipientStudentId || !tokenId) {
+        if (!newOwnerEmail || !tokenId) {
             showErrorMessage('Please fill in all fields');
             return;
         }
@@ -34,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
         }else{
 
-            showSuccessMessage(`Token transferred successfully to student ID : ${recipientStudentId}`);
+            showSuccessMessage(`Token transferred successfully to : ${newOwnerEmail}`);
         }
         
         document.getElementById('recipientStudentId').value = '';
