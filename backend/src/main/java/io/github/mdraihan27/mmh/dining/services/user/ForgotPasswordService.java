@@ -60,26 +60,7 @@ public class ForgotPasswordService {
             throw new Exception(e.getMessage());
         }
     }
-
-    public ResponseEntity updateName(String newName) throws Exception {
-        try{
-            UserEntity authenticatedUser = getAuthenticatedUserUtil.getAuthenticatedUser();
-
-            if(newName.isEmpty()){
-                return ResponseEntity.badRequest()
-                        .body(createResponseUtil.createResponseBody(false, "Name cannot be empty"));
-            }else{
-               authenticatedUser.setName(newName);
-                userRepository.save(authenticatedUser);
-                return ResponseEntity.ok().body(createResponseUtil.createResponseBody(true, "Name successfully updated"));
-
-            }
-
-        }catch (Exception e){
-            log.error(e.getMessage());
-            throw new Exception(e.getMessage());
-        }
-    }
+    
 
     @Transactional
     public ResponseEntity resetPasswordWithoutPreviousPassword(String newPassword, String email) throws Exception {
@@ -88,21 +69,23 @@ public class ForgotPasswordService {
 
             if(userResponse.getStatusCode() != HttpStatus.OK){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(createResponseUtil.createResponseBody(false, "User with this email does not exist"));
+                        .body(createResponseUtil
+                                .createResponseBody(false, "User with this email does not exist"));
             }
 
             if(newPassword.length() < 8 || newPassword.length() > 50){
 
                 return ResponseEntity.badRequest()
-                        .body(createResponseUtil.createResponseBody(false, "Password must be between 8 and 50 characters"));
-
+                        .body(createResponseUtil
+                                .createResponseBody(false, "Password must be between 8 and 50 characters"));
             }else{
                 userResponse.getBody().setPassword((passwordEncoder.encode(newPassword)));
                 userRepository.save(userResponse.getBody());
-                return ResponseEntity.ok().body(createResponseUtil.createResponseBody(true, "Password successfully changed"));
-
+                return ResponseEntity
+                        .ok()
+                        .body(createResponseUtil
+                                .createResponseBody(true, "Password successfully changed"));
             }
-
         }catch (Exception e){
             log.error(e.getMessage());
             throw new Exception(e.getMessage());

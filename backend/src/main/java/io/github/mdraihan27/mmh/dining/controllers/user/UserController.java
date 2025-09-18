@@ -5,6 +5,7 @@ import io.github.mdraihan27.mmh.dining.repositories.UserVerificationRepository;
 import io.github.mdraihan27.mmh.dining.services.user.ForgotPasswordService;
 import io.github.mdraihan27.mmh.dining.entities.user.UserEntity;
 import io.github.mdraihan27.mmh.dining.repositories.UserRepository;
+import io.github.mdraihan27.mmh.dining.services.user.UserService;
 import io.github.mdraihan27.mmh.dining.utilities.CreateResponseUtil;
 import io.github.mdraihan27.mmh.dining.utilities.GetAuthenticatedUserUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private UserVerificationRepository userVerificationRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("user-info")
     public ResponseEntity getLoggedInUserInfo() {
@@ -89,7 +93,7 @@ public class UserController {
 
             String newName = (String) requestBody.get("newName");
 
-            return forgotPasswordService.updateName(newName);
+            return userService.updateName(newName);
 
         } catch (Exception e) {
             log.error(e.getMessage());

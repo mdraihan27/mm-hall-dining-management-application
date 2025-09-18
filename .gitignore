@@ -33,3 +33,5 @@ build/
 .vscode/
 
 /frontend/secrets.js
+config.bat
+node_modules
