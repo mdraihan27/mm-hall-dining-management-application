@@ -43,7 +43,8 @@ public class CreateAndValidateDiningTokenService {
     @Transactional
     public ResponseEntity createNewToken(UserEntity tokenOwner, DiningTokenEntity diningToken) {
         try {
-            diningToken.setTokenId(UUID.randomUUID().toString().replace("-", "").substring(0, 8));
+            diningToken.setTokenId(UUID.randomUUID()
+                    .toString().replace("-", "").substring(0, 8));
             diningToken.setTokenOwnerEmail(tokenOwner.getEmail());
             diningToken.setTokenGenerationTIme(Instant.now().toEpochMilli());
 
@@ -53,17 +54,16 @@ public class CreateAndValidateDiningTokenService {
                 diningToken.setMealPrice(mealInfoRepository.findById("mealInfo").get().getDinnerMealPrice());
             }
 
-
-
             long tokenExpirationTime;
             if (diningToken.getMealTime().equals("lunch")) {
-                tokenExpirationTime = getNextDaySpecificMomentTimeStamp(15, 00);
+                tokenExpirationTime = getNextDaySpecificMomentTimeStamp(9, 0);
             } else if (diningToken.getMealTime().equals("dinner")) {
-                tokenExpirationTime = getNextDaySpecificMomentTimeStamp(21, 45);
+                tokenExpirationTime = getNextDaySpecificMomentTimeStamp(17, 0);
             } else {
                 return ResponseEntity
                         .badRequest()
-                        .body(createResponseUtil.createResponseBody(false, "Meal type is invalid or empty"));
+                        .body(createResponseUtil
+                                .createResponseBody(false, "Meal type is invalid or empty"));
             }
 
             diningToken.setTokenExpirationTime(tokenExpirationTime);
@@ -71,7 +71,8 @@ public class CreateAndValidateDiningTokenService {
             if(diningToken.getMealPrice() > tokenOwner.getBalance()) {
                 return ResponseEntity
                         .badRequest()
-                        .body(createResponseUtil.createResponseBody(false, "User does not have enough balance to buy this token"));
+                        .body(createResponseUtil
+                                .createResponseBody(false, "User does not have enough balance to buy this token"));
             }else{
                 tokenOwner.setBalance(tokenOwner.getBalance() - diningToken.getMealPrice());
             }
@@ -82,9 +83,13 @@ public class CreateAndValidateDiningTokenService {
                 tokenOwner.getUserTokensId().add(savedToken.getTokenId());
                 userRepository.save(tokenOwner);
                 diningRecordService.addTokenToDiningRecords(savedToken);
-                return ResponseEntity.ok().body(createResponseUtil.createResponseBody(true, "Token generated successfully"));
+                return ResponseEntity
+                        .ok()
+                        .body(createResponseUtil
+                                .createResponseBody(true, "Token generated successfully"));
             } else {
-                return ResponseEntity.internalServerError().body(createResponseUtil.createResponseBody(false, "Failed to create new token"));
+                return ResponseEntity
+                        .internalServerError().body(createResponseUtil.createResponseBody(false, "Failed to create new token"));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -106,7 +111,8 @@ public class CreateAndValidateDiningTokenService {
 
             return ResponseEntity
                     .ok()
-                    .body(createResponseUtil.createResponseBody(true, "Token validated successfully", "diningTokenInfo", createResponseUtil.createDiningTokenInfoMap(token)));
+                    .body(createResponseUtil
+                            .createResponseBody(true, "Token validated successfully", "diningTokenInfo", createResponseUtil.createDiningTokenInfoMap(token)));
 
         } catch (Exception e) {
             throw new RuntimeException(e);

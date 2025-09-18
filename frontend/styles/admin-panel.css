@@ -55,10 +55,7 @@ main {
     /* min-height: calc(100vh - 400px); */
 }
 
-.page-wrapper {
-    /* max-width: 800px; */
-    /* margin: 0 auto; */
-}
+/* .page-wrapper intentionally uses global layout; removed empty ruleset */
 
 .page-header {
     text-align: center;
@@ -81,6 +78,85 @@ main {
     max-width: 1350px;
     margin: auto;
     margin-bottom: 50px;
+}
+
+/* Action buttons layout */
+.admin-panel-actions {
+    max-width: 1100px;
+    margin: 20px auto 50px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    padding: 0 1.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 16px var(--shadow);
+    background: var(--white);
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: none;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .2s ease;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 200;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--white);
+    width: 100%;
+    max-width: 640px;
+    border-radius: 16px;
+    box-shadow: 0 12px 48px var(--shadow);
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+    margin: 0;
+}
+
+.modal-header .close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
 }
 
 .form-container {
